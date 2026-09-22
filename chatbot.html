@@ -16,25 +16,36 @@
 
     <script type="text/babel">
       // the component name must start with a capital letter
+      // fragment syntax is <></>
       function ChatInput() {
         return (
-          <div>
-            <input />
+          <>
+            <input placeholder="Send a message to Chatbot" size="30" />
             <button>Send</button>
-          </div>
+          </>
         );
       }
+
+      function ChatMessage() {
+        return (
+          <>
+            hello chatbot
+            <img />
+          </>
+        );
+      }
+
       // {} is for inserting JS code into JSX
       // component syntax is <ComponentName />, e.g. <ChatInput />
       // {ChatInput()}
 
-      const div = (
-        <div>
+      const app = (
+        <>
           <ChatInput />
-        </div>
+        </>
       );
       const container = document.querySelector(".js-container");
-      ReactDOM.createRoot(container).render(div);
+      ReactDOM.createRoot(container).render(app);
     </script>
   </body>
 </html>
