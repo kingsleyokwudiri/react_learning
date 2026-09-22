@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>React Basics</title>
+    <title>Chatbot</title>
   </head>
   <body>
     <div class="js-container"></div>
@@ -15,30 +15,26 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
 
     <script type="text/babel">
-      // JSX: use {} for JS expressions
+      // the component name must start with a capital letter
+      function ChatInput() {
+        return (
+          <div>
+            <input />
+            <button>Send</button>
+          </div>
+        );
+      }
+      // {} is for inserting JS code into JSX
+      // component syntax is <ComponentName />, e.g. <ChatInput />
+      // {ChatInput()}
+
       const div = (
         <div>
-          <button>hello</button>
-          <p>paragraph {2 + 2}</p>
+          <ChatInput />
         </div>
       );
-
       const container = document.querySelector(".js-container");
       ReactDOM.createRoot(container).render(div);
-
-      const date = dayjs().format("MMMM D");
-      const container2 = document.querySelector(".js-container2");
-      ReactDOM.createRoot(container2).render(<p>Today is {date}</p>);
-
-      const container3 = document.querySelector(".js-container3");
-      const root = ReactDOM.createRoot(container3);
-
-      function renderTime() {
-        root.render(<p>Current time is {dayjs().format("HH:mm:ss")}</p>);
-      }
-
-      renderTime(); // render immediately
-      setInterval(renderTime, 1000); // then update every second
     </script>
   </body>
 </html>
