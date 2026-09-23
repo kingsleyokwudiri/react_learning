@@ -26,12 +26,27 @@
         );
       }
 
-      function ChatMessage() {
+      // <div></div> is a block element, it will take up an entire line
+      // components are designed to be reusable,
+      // so they should be generic and not specific to a single use case
+      // props is short for properties,
+      //
+      // it is an object that contains the data passed to the component
+      function ChatMessage({ message, sender }) {
+        // or const message = props.message;
+        // or const { message, sender } = props;
+
+        // guard operator
         return (
-          <>
-            hello chatbot
-            <img />
-          </>
+          <div>
+            {sender === "robot" && (
+              <img src="assets/robot.png" width="50" height="50" />
+            )}
+            {message}
+            {sender === "user" && (
+              <img src="assets/user.png" width="50" height="50" />
+            )}
+          </div>
         );
       }
 
@@ -39,13 +54,20 @@
       // component syntax is <ComponentName />, e.g. <ChatInput />
       // {ChatInput()}
 
-      const app = (
-        <>
-          <ChatInput />
-        </>
-      );
+      function App() {
+        return (
+          <>
+            <ChatInput />
+            <ChatMessage message="hello chatbot" sender="user" />
+            <ChatMessage message="Hello! How can I help you?" sender="robot" />
+            <ChatMessage message="can you get me todays date?" sender="user" />
+            <ChatMessage message="Today is September 27" sender="robot" />
+          </>
+        );
+      }
+
       const container = document.querySelector(".js-container");
-      ReactDOM.createRoot(container).render(app);
+      ReactDOM.createRoot(container).render(<App />);
     </script>
   </body>
 </html>
