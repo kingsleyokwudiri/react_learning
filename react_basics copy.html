@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <div class="js-container2"></div>
+    <div class="js-container3"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      // JSX: use {} for JS expressions
+      function App() {
+        return (
+          <>
+            <ProductDetails
+              name="Cotton socks"
+              price={10.9}
+              discountPrice={5.45}
+              imageSrc="assets/cotton-socks.png"
+            />
+            <ProductDetails
+              name="Tennis balls"
+              price={6.0}
+              discountPrice={5.45}
+              imageSrc="assets/tennis-balls.png"
+            />
+
+            <ProductDetails
+              name="Plain T-Shirt"
+              price={7.99}
+              imageSrc="assets/plain-t-shirt.png"
+            />
+          </>
+        );
+      }
+      // ternary operator: condition ? true : false
+      function ProductDetails({ name, price, discountPrice, imageSrc }) {
+        return (
+          <>
+            <img src={imageSrc} width="50" height="50" />
+
+            <h2>{name}</h2>
+
+            {discountPrice !== undefined ? (
+              <>
+                <del>
+                  <p>Price: ${price.toFixed(2)}</p>
+                </del>
+                <p>Discount Price: ${discountPrice.toFixed(2)}</p>
+              </>
+            ) : (
+              <p>Price: ${price.toFixed(2)}</p>
+            )}
+
+            <button>Add to cart</button>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
