@@ -40,10 +40,13 @@
 
         return (
           <>
-            <input placeholder="Send a message to Chatbot" size="30" />
+            <input
+              placeholder="Send a message to Chatbot"
+              size="30"
+              onChange={saveInputText}
+              value={inputText}
+            />
             <button onClick={sendMessage}>Send</button>
-            onChange={saveInputText}
-            value={inputText}
           </>
         );
       }
