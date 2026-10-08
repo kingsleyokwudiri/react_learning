@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <script src="libs/react.js"></script>
+    <script src="libs/react-dom.js"></script>
+    <script src="libs/babel.js"></script>
+
+    <script type="text/babel">
+      function Button() {
+        const [count, setCount] = React.useState(0);
+        const handleClick = () => {
+          setCount((count) => count + 1);
+        };
+        const resetCount = () => {
+          setCount((count) => (count = 0));
+        };
+
+        return (
+          <>
+            <button onClick={handleClick}>Clicked {count} times</button>;
+            <button onClick={handleClick}>Clicked {count} times</button>;
+            <button onClick={resetCount}>Reset</button>;
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<Button />);
+    </script>
+  </body>
+</html>

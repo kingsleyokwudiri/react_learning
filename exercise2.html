@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <div class="js-container2"></div>
+
+    <script src="libs/react.js"></script>
+    <script src="libs/react-dom.js"></script>
+    <script src="libs/babel.js"></script>
+
+    <script type="text/babel">
+      function Display() {
+        const [name, setName] = React.useState("");
+        function saveName(event) {
+          setName(event.target.value);
+        }
+        const resetName = () => {
+          setName((name) => (name = ""));
+        };
+        const exampleName = () => {
+          setName((name) => (name = "Alice"));
+        };
+        return (
+          <>
+            <input
+              placeholder="Type your name here"
+              size="30"
+              onChange={saveName}
+              value={name}
+            />
+            <button onClick={resetName}>Reset</button>
+            <button onClick={exampleName}>Example</button>
+
+            <p>Hey {name}</p>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+
+      ReactDOM.createRoot(container).render(<Display />);
+    </script>
+  </body>
+</html>
