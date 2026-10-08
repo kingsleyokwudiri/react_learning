@@ -13,18 +13,21 @@
     <script type="text/babel">
       function Button() {
         const [count, setCount] = React.useState(0);
-        const handleClick = () => {
-          setCount((count) => count + 1);
-        };
+        function handleClick() {
+          setCount(count + 1);
+        }
         const resetCount = () => {
           setCount((count) => (count = 0));
         };
+        function MyButton() {
+          return <button onClick={handleClick}>Clicked {count} times</button>;
+        }
 
         return (
           <>
-            <button onClick={handleClick}>Clicked {count} times</button>;
-            <button onClick={handleClick}>Clicked {count} times</button>;
-            <button onClick={resetCount}>Reset</button>;
+            <MyButton />
+            <MyButton />
+            <button onClick={resetCount}>Reset</button>
           </>
         );
       }
