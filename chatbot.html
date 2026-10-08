@@ -6,8 +6,6 @@
   </head>
   <body>
     <div class="js-container"></div>
-    <div class="js-container2"></div>
-    <div class="js-container3"></div>
 
     <script src="libs/react.js"></script>
     <script src="libs/react-dom.js"></script>
@@ -22,14 +20,22 @@
         const [inputText, setInputText] = React.useState("");
         // array destructuring: inputText is the value, setInputText is the setter
         // React.useState("") creates state that starts as an empty string
+        const [isLoading, setIsLoading] = React.useState(false);
+
         function saveInputText(event) {
           // runs every time the user types a character into the input
           setInputText(event.target.value);
         }
 
+        // async lets this function pause at an await and continue later
         async function sendMessage() {
-          // async lets this function pause at an await and continue later
+          if (isLoading || inputText === "") {
+            // if the robot is still thinking or the input is empty, do nothing
+            return;
+          }
           // runs when the user clicks Send or presses Enter
+          setInputText("");
+          setIsLoading(true);
           const newChatMessage = [
             // builds a NEW array of messages (state must never be changed directly)
             ...chatMessages,
@@ -49,10 +55,18 @@
             // everything below only runs after the await above has finished
             ...newChatMessage,
             // copies in all the messages, including the user's new one
+            { message: "Loading...", sender: "robot", id: crypto.randomUUID() },
+            // adds the robot's reply as the last message
+          ]);
+          setChatMessages([
+            // saves the list one more time, this time with the robot's reply added
+            // everything below only runs after the await above has finished
+            ...newChatMessage,
+            // copies in all the messages, including the user's new one
             { message: response, sender: "robot", id: crypto.randomUUID() },
             // adds the robot's reply as the last message
           ]);
-          setInputText("");
+          setIsLoading(false);
         }
 
         return (
