@@ -46,6 +46,13 @@
           ];
           setChatMessages(newChatMessage);
           // saves the list that now includes the user's message
+          setChatMessages([
+            // shows a temporary "Loading..." bubble while the robot thinks
+            ...newChatMessage,
+            // copies in all the messages, including the user's new one
+            { message: "Loading...", sender: "robot", id: crypto.randomUUID() },
+            // this bubble is temporary: the reply below replaces it
+          ]);
           const response = await Chatbot.getResponseAsync(inputText);
           // asks the Chatbot object from chatbot.js for a reply to the input
           // getResponseAsync waits a second before replying, and returns a Promise
@@ -55,16 +62,9 @@
             // everything below only runs after the await above has finished
             ...newChatMessage,
             // copies in all the messages, including the user's new one
-            { message: "Loading...", sender: "robot", id: crypto.randomUUID() },
-            // adds the robot's reply as the last message
-          ]);
-          setChatMessages([
-            // saves the list one more time, this time with the robot's reply added
-            // everything below only runs after the await above has finished
-            ...newChatMessage,
-            // copies in all the messages, including the user's new one
+            // this rebuilds from newChatMessage, so the "Loading..." bubble is dropped
             { message: response, sender: "robot", id: crypto.randomUUID() },
-            // adds the robot's reply as the last message
+            // adds the robot's real reply as the last message
           ]);
           setIsLoading(false);
         }
