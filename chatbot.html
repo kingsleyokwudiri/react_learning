@@ -3,6 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <title>Chatbot</title>
+    <style>
+      .send-button {
+        background-color: rgb(25, 135, 84);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-left: 10px;
+        font-size: 15px;
+      }
+      .chat-input {
+        border: 1px solid #ccc;
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border-width: "1px";
+        font-size: 15px;
+      }
+    </style>
   </head>
   <body>
     <div class="js-container"></div>
@@ -75,11 +96,13 @@
         return (
           // return hands the JSX below back to React so it can be drawn
           // <></> is a fragment: it groups elements without adding an extra div
-          <>
+          // used <div> for flexbox
+          <div>
             {/* onChange: runs each time the text changes, so inputText stays in sync */}
             {/* value: what the input displays - this makes it a "controlled" input */}
             <input
               placeholder="Send a message to Chatbot"
+              className="chat-input"
               size="30"
               onChange={saveInputText}
               value={inputText}
@@ -94,8 +117,10 @@
               }}
             />
             {/* onClick: runs sendMessage when the button is clicked */}
-            <button onClick={sendMessage}>Send</button>
-          </>
+            <button className="send-button" onClick={sendMessage}>
+              Send
+            </button>
+          </div>
         );
       }
 
