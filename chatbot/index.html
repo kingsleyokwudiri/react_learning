@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chatbot</title>
+    <!-- our own styles live next to this file -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <!-- shared libraries live one folder up, in libs/ -->
+    <script src="../libs/react.js"></script>
+    <script src="../libs/react-dom.js"></script>
+    <script src="../libs/babel.js"></script>
+    <script src="../libs/chatbot.js"></script>
+
+    <!-- our own components; type="text/babel" tells Babel to compile this
+         file from JSX into plain JavaScript before the browser runs it -->
+    <script type="text/babel" src="app.jsx"></script>
+  </body>
+</html>
