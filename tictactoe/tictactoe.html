@@ -16,13 +16,9 @@
       // import { createRoot } from "react-dom/client";
       // import "tictactoe.css";
 
-      function Square() {
-        const [value, setValue] = React.useState(null);
-        function handleClick() {
-          setValue("X");
-        }
+      function Square({ value, onSquareClick }) {
         return (
-          <button className="square" onClick={handleClick}>
+          <button className="square" onClick={onSquareClick}>
             {value}
           </button>
         );
@@ -30,11 +26,16 @@
 
       function Board() {
         // Array(9).fill(null) creates an array with nine elements and sets each of them to null
-        const [squares, setSquares] = useState(Array(9).fill(null));
+        const [squares, setSquares] = React.useState(Array(9).fill(null));
+        function handleClick() {
+          const nextSquares = squares.slice();
+          nextSquares[0] = "X";
+          setSquares(nextSquares);
+        }
         return (
           <>
             <div className="board-row">
-              <Square value={squares[0]} />
+              <Square value={squares[0]} onSquareClick={handleClick} />
               <Square value={squares[1]} />
               <Square value={squares[2]} />
             </div>
