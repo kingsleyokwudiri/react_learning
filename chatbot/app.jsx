@@ -1,5 +1,7 @@
 // this file is loaded by index.html and compiled by Babel (type="text/babel")
 
+import React from "react";
+
 // the component name must start with a capital letter
 // {} is for inserting JS code into JSX
 // component syntax is <ComponentName />, e.g. <ChatInput />
@@ -10,6 +12,9 @@
 function ChatInput({ chatMessages, setChatMessages }) {
   // array destructuring: inputText is the value, setInputText is the setter
   // React.useState("") creates state that starts as an empty string
+
+  // React.useState is a hook
+  // hooks shall be at the top of the component, and must not be nested inside anything else
   const [inputText, setInputText] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -74,16 +79,13 @@ function ChatInput({ chatMessages, setChatMessages }) {
         onChange={saveInputText}
         value={inputText}
         onKeyDown={(event) => {
-          // runs on every key press while the input is focused
           if (event.key === "Enter") {
-            // sends the message
             sendMessage();
           } else if (event.key === "Escape") {
             setInputText("");
           }
         }}
       />
-      {/* onClick: runs sendMessage when the button is clicked */}
       <button className="send-button" onClick={sendMessage}>
         Send
       </button>
@@ -108,20 +110,22 @@ function ChatMessage({ message, sender }) {
     // React needs one single root element, so everything goes in a <div>
     <div
       className={
-        sender === "user" ? "chat-message-user" : "chat-message-robot"
+        sender === "user" 
+        ? "chat-message-user" 
+        : "chat-message-robot"
       }
     >
-      {/* if the sender is the robot, the image below is shown */}
-      {/* && is the guard operator: if the left side is false, the right */}
-      {/* side is skipped */}
-      {/* ../assets/ means "go up one folder, then into assets" */}
       {sender === "robot" && (
-        <img src="../assets/robot.png" width="50" height="50" />
+        <img src="../assets/robot.png" className="chat-message-profile"/>
       )}
       {/* { } inserts JavaScript into JSX, here the message text */}
-      {message}
+      
+      <div className="chat-message-text">
+        {message}
+      </div>
+      
       {sender === "user" && (
-        <img src="../assets/user.png" width="50" height="50" />
+        <img src="../assets/user.png" className="chat-message-profile"/>
       )}
     </div>
   );
@@ -130,9 +134,12 @@ function ChatMessage({ message, sender }) {
 // defines the ChatMessages component, which shows the whole list
 // it receives the chatMessages array as a prop
 function ChatMessages({ chatMessages }) {
+  React.useEffect(() => {
+    console.log("hello")
+  }, [chatMessages])
   // returns a fragment so no extra div is added around the messages
   return (
-    <>
+    <div className="chat-messages-container">
       {chatMessages.map((chatMessage) => {
         // .map() loops over the array and builds a new array of JSX
         // one <ChatMessage /> is created for each object in the array
@@ -148,7 +155,7 @@ function ChatMessages({ chatMessages }) {
           />
         );
       })}
-    </>
+    </div>
   );
 }
 
@@ -191,12 +198,12 @@ function App() {
     <div className="app-container">
       {/* chatMessages: passed down so ChatInput can read the list */}
       {/* setChatMessages: passed down so ChatInput can update the list */}
+      {/* chatMessages: the same list, passed down so it can be displayed */}
+      <ChatMessages chatMessages={chatMessages} />
       <ChatInput
         chatMessages={chatMessages}
         setChatMessages={setChatMessages}
       />
-      {/* chatMessages: the same list, passed down so it can be displayed */}
-      <ChatMessages chatMessages={chatMessages} />
     </div>
   );
 }
