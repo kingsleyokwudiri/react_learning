@@ -134,9 +134,9 @@ function ChatMessage({ message, sender }) {
 // defines the ChatMessages component, which shows the whole list
 // it receives the chatMessages array as a prop
 function ChatMessages({ chatMessages }) {
-  React.useEffect(() => {
-    console.log("hello")
-  }, [chatMessages])
+  // React.useEffect(() => {
+  //   console.log("hello")
+  // }, [chatMessages])
   // returns a fragment so no extra div is added around the messages
   return (
     <div className="chat-messages-container">
