@@ -17,7 +17,15 @@
       // import "tictactoe.css";
 
       function Square() {
-        return <button className="square">1</button>;
+        const [value, setValue] = React.useState(null);
+        function handleClick() {
+          setValue("X");
+        }
+        return (
+          <button className="square" onClick={handleClick}>
+            {value}
+          </button>
+        );
       }
 
       function Board() {
