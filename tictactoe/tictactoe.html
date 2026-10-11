@@ -15,35 +15,35 @@
       // import { StrictMode } from "react";
       // import { createRoot } from "react-dom/client";
       // import "tictactoe.css";
+
       function Square() {
+        return <button className="square">1</button>;
+      }
+
+      function Board() {
         return (
           <>
             <div className="board-row">
-              <button className="square">1</button>
-              <button className="square">2</button>
-              <button className="square">3</button>
+              <Square />
+              <Square />
+              <Square />
             </div>
             <div className="board-row">
-              <button className="square">1</button>
-              <button className="square">2</button>
-              <button className="square">3</button>
+              <Square />
+              <Square />
+              <Square />
             </div>
             <div className="board-row">
-              <button className="square">1</button>
-              <button className="square">2</button>
-              <button className="square">3</button>
-            </div>
-            <div className="board-row">
-              <button className="square">1</button>
-              <button className="square">2</button>
-              <button className="square">3</button>;
+              <Square />
+              <Square />
+              <Square />
             </div>
           </>
         );
       }
 
       const container = document.querySelector(".js-container");
-      ReactDOM.createRoot(container).render(<Square />);
+      ReactDOM.createRoot(container).render(<Board />);
     </script>
   </body>
 </html>
