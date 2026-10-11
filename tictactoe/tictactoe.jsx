@@ -17,7 +17,7 @@ function Board() {
   // this function updates the nextSquares array to add X to the first square
   function handleClick(i) {
     // checks if a square is already filled
-    if (squares[i]) {
+    if (squares[i] || calculateWinner(squares)) {
       return
     }
     const nextSquares = squares.slice();
@@ -29,8 +29,16 @@ function Board() {
     setSquares(nextSquares);
     setXIsNext(!xIsNext)
   }
+    const winner = calculateWinner(squares)
+    let status;
+    if (winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = "Next player: " + (xIsNext ? "X" : "O")
+    }
   return (
     <>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square
           value={squares[0]}
@@ -95,7 +103,20 @@ function Board() {
   );
 }
 
-function calculateWinners(squares) {
+function Game() {
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board />
+      </div>
+      <div className="game-info">
+        <ol>{}</ol>
+      </div>
+    </div>
+  )
+}
+
+function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
