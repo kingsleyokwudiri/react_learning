@@ -1,0 +1,16 @@
+{
+  "name": "react-learning",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React learning exercises, run in the browser with no build step",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0"
+  }
+}
