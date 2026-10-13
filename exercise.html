@@ -11,22 +11,26 @@
     <script src="libs/babel.js"></script>
 
     <script type="text/babel">
+      // MyButton lives at the top level, like Square and Board in the tictactoe
+      // example. A component defined inside another component is a new function
+      // on every render, so React unmounts and remounts the whole subtree.
+      function MyButton({ count, onClick }) {
+        return <button onClick={onClick}>Clicked {count} times</button>;
+      }
+
       function Button() {
         const [count, setCount] = React.useState(0);
         function handleClick() {
           setCount(count + 1);
         }
         const resetCount = () => {
-          setCount((count) => (count = 0));
+          setCount(0);
         };
-        function MyButton() {
-          return <button onClick={handleClick}>Clicked {count} times</button>;
-        }
 
         return (
           <>
-            <MyButton />
-            <MyButton />
+            <MyButton count={count} onClick={handleClick} />
+            <MyButton count={count} onClick={handleClick} />
             <button onClick={resetCount}>Reset</button>
           </>
         );

@@ -1,6 +1,8 @@
 // this file is loaded by index.html and compiled by Babel (type="text/babel")
 
-import React from "react";
+// React is not imported here: Babel compiles this file as a classic script,
+// so a bare `import ... from "react"` would become require("react") and throw.
+// It is already a global, loaded by <script src="../libs/react.js">.
 
 // the component name must start with a capital letter
 // {} is for inserting JS code into JSX
@@ -40,10 +42,8 @@ function ChatInput({ chatMessages, setChatMessages }) {
       // crypto.randomUUID() gives each message a unique id for React's key
       { message: inputText, sender: "user", id: crypto.randomUUID() },
     ];
-    // saves the list that now includes the user's message
-    setChatMessages(newChatMessage);
-    // shows a temporary "Loading..." bubble while the robot thinks
-    // this bubble is temporary: the reply below replaces it
+    // shows the user's message plus a temporary "Loading..." bubble while the
+    // robot thinks. the reply below replaces this list, dropping the bubble
     setChatMessages([
       // copies in all the messages, including the user's new one
       ...newChatMessage,

@@ -10,32 +10,32 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-function Board() {
-  const [xIsNext, setXIsNext] = React.useState(true)
+function Board({ xIsNext, squares, onPlay }) {
+  // const [xIsNext, setXIsNext] = React.useState(true)
   // Array(9).fill(null) creates an array with nine elements and sets each of them to null
-  const [squares, setSquares] = React.useState(Array(9).fill(null));
+  // const [squares, setSquares] = React.useState(Array(9).fill(null));
   // this function updates the nextSquares array to add X to the first square
   function handleClick(i) {
     // checks if a square is already filled
     if (squares[i] || calculateWinner(squares)) {
-      return
+      return;
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = "X"
+      nextSquares[i] = "X";
     } else {
       nextSquares[i] = "O";
     }
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext)
+    onPlay(nextSquares);
+    // setXIsNext(!xIsNext)
   }
-    const winner = calculateWinner(squares)
-    let status;
-    if (winner) {
-      status = "Winner: " + winner;
-    } else {
-      status = "Next player: " + (xIsNext ? "X" : "O")
-    }
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
   return (
     <>
       <div className="status">{status}</div>
@@ -104,16 +104,24 @@ function Board() {
 }
 
 function Game() {
+  const [xIsNext, setXIsNext] = React.useState(true);
+  const [history, setHistory] = React.useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
   return (
     <div className="game">
       <div className="game-board">
-        <Board />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
         <ol>{}</ol>
       </div>
     </div>
-  )
+  );
 }
 
 function calculateWinner(squares) {
@@ -125,16 +133,16 @@ function calculateWinner(squares) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
-  ]
+    [2, 4, 6],
+  ];
   for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i]
+    const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a]
+      return squares[a];
     }
   }
-  return null
+  return null;
 }
 
 const container = document.querySelector(".js-container");
-ReactDOM.createRoot(container).render(<Board />);
+ReactDOM.createRoot(container).render(<Game />);
