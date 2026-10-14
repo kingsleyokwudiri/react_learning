@@ -1,7 +1,7 @@
 // ESLint "flat config" (the format used by ESLint v9 and later).
 // This file is .mjs so Node treats it as an ES module, without needing
 // "type": "module" in package.json -- which would change how Node reads
-// the plain .js files in libs/.
+// the plain .js files in no-build/libs/.
 //
 // Run it with:  npm run lint        (or)  npm run lint:fix
 
@@ -11,12 +11,12 @@ import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
   // 1. Never lint third-party code or installed packages.
-  //    libs/ holds the vendored copies of React, Babel and friends that the
-  //    browser loads via <script> tags. They are not ours to fix.
+  //    no-build/libs/ holds the vendored copies of React, Babel and friends
+  //    that the browser loads via <script> tags. They are not ours to fix.
   //    my-react-app/ is a separate Vite project with its own eslint.config.js
   //    and its own rule set; lint it from inside that folder instead.
   {
-    ignores: ["libs/**", "node_modules/**", "my-react-app/**"],
+    ignores: ["**/libs/**", "node_modules/**", "my-react-app/**"],
   },
 
   // 2. ESLint's own recommended rules (unused variables, undefined names,

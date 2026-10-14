@@ -1,14 +1,15 @@
-// The tictactoe exercise, ported from ../../tictactoe/tictactoe.jsx.
+// The tictactoe exercise, ported from ../../no-build/tictactoe/tictactoe.jsx.
 //
 // Same components, same game logic -- the only difference is how the file is
 // loaded. There, Babel compiles the JSX in the browser and React comes from a
-// <script> tag in libs/, so the code refers to the global `React.useState`.
+// <script> tag in no-build/libs/, so the code refers to the global
+// `React.useState`.
 // Here, Vite compiles it ahead of time and React is a real npm package, so it
 // is imported. Compare the two files side by side to see what the build step
 // actually buys you.
 
 import { useState } from "react";
-import "./TicTacToe.css";
+import "../styles/TicTacToe.css";
 
 function Square({ value, onSquareClick }) {
   return (
