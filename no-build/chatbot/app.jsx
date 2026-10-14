@@ -109,23 +109,17 @@ function ChatMessage({ message, sender }) {
   return (
     // React needs one single root element, so everything goes in a <div>
     <div
-      className={
-        sender === "user" 
-        ? "chat-message-user" 
-        : "chat-message-robot"
-      }
+      className={sender === "user" ? "chat-message-user" : "chat-message-robot"}
     >
       {sender === "robot" && (
-        <img src="../assets/robot.png" className="chat-message-profile"/>
+        <img src="../assets/robot.png" className="chat-message-profile" />
       )}
       {/* { } inserts JavaScript into JSX, here the message text */}
-      
-      <div className="chat-message-text">
-        {message}
-      </div>
-      
+
+      <div className="chat-message-text">{message}</div>
+
       {sender === "user" && (
-        <img src="../assets/user.png" className="chat-message-profile"/>
+        <img src="../assets/user.png" className="chat-message-profile" />
       )}
     </div>
   );
@@ -134,12 +128,19 @@ function ChatMessage({ message, sender }) {
 // defines the ChatMessages component, which shows the whole list
 // it receives the chatMessages array as a prop
 function ChatMessages({ chatMessages }) {
-  // React.useEffect(() => {
-  //   console.log("hello")
-  // }, [chatMessages])
+  // useEffect is used to run some code after the component is created/updated
+  // useRef is used to save an HTML element from the component
+  const chatMessagesRef = React.useRef(null);
+  React.useEffect(() => {
+    const containerElem = chatMessagesRef.current;
+    if (containerElem) {
+      containerElem.scrollTop = containerElem.scrollHeight;
+    }
+  }, [chatMessages]);
   // returns a fragment so no extra div is added around the messages
   return (
-    <div className="chat-messages-container">
+    // ref={} takes an HtML element, and saves it into chatMessagesRef
+    <div className="chat-messages-container" ref={chatMessagesRef}>
       {chatMessages.map((chatMessage) => {
         // .map() loops over the array and builds a new array of JSX
         // one <ChatMessage /> is created for each object in the array
