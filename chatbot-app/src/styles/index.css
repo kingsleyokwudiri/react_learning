@@ -1,0 +1,11 @@
+/* Global styles. The chatbot's own styles live in Chatbot.css. */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

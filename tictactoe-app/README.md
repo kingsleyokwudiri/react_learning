@@ -33,5 +33,5 @@ npm run lint
 ```
 
 <!--
-cd my-react-app
+cd tictactoe-app
   <!-- npm run dev --> starts Vite and prints a local URL -->

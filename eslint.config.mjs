@@ -13,10 +13,11 @@ export default [
   // 1. Never lint third-party code or installed packages.
   //    no-build/libs/ holds the vendored copies of React, Babel and friends
   //    that the browser loads via <script> tags. They are not ours to fix.
-  //    my-react-app/ is a separate Vite project with its own eslint.config.js
-  //    and its own rule set; lint it from inside that folder instead.
+  //    tictactoe-app/ and chatbot-app/ are separate Vite projects with their
+  //    own eslint.config.js files and rule sets; lint those from inside their
+  //    folders instead.
   {
-    ignores: ["**/libs/**", "node_modules/**", "my-react-app/**"],
+    ignores: ["**/libs/**", "node_modules/**", "tictactoe-app/**", "chatbot-app/**"],
   },
 
   // 2. ESLint's own recommended rules (unused variables, undefined names,
