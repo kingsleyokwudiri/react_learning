@@ -70,3 +70,8 @@ body {
   overflow: scroll;
   scrollbar-width: none;
 }
+
+.welcome-message {
+  text-align: center;
+  color: gray;
+}

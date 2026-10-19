@@ -1,9 +1,3 @@
-// this file is loaded by index.html and compiled by Babel (type="text/babel")
-
-// React is not imported here: Babel compiles this file as a classic script,
-// so a bare `import ... from "react"` would become require("react") and throw.
-// It is already a global, loaded by <script src="../libs/react.js">.
-
 // the component name must start with a capital letter
 // {} is for inserting JS code into JSX
 // component syntax is <ComponentName />, e.g. <ChatInput />
@@ -32,6 +26,8 @@ function ChatInput({ chatMessages, setChatMessages }) {
     if (isLoading || inputText === "") {
       return;
     }
+    // if (chatMessages.length === 0) {
+    // }
     setInputText("");
     setIsLoading(true);
     // builds a NEW array of messages (state must never be changed directly)
@@ -138,6 +134,13 @@ function ChatMessages({ chatMessages }) {
     }
   }, [chatMessages]);
   // returns a fragment so no extra div is added around the messages
+  if (chatMessages.length === 0) {
+    return (
+      <div className="welcome-message">
+        <p>Welcome to the chatbot project!</p>
+      </div>
+    );
+  }
   return (
     // ref={} takes an HtML element, and saves it into chatMessagesRef
     <div className="chat-messages-container" ref={chatMessagesRef}>
@@ -163,35 +166,13 @@ function ChatMessages({ chatMessages }) {
 // defines App, the main component that holds the state
 function App() {
   // React.useState([...]) stores the array below as state
-  // the starting value is this array of four message objects
+  // the starting value is an empty array, so the chat starts with no messages
   // Array Destructuring
   // const [chatMessages, setChatMessages] = array;
   // or
   // const chatMessages = array[0];
   // const setChatMessages = array[1];
-  const [chatMessages, setChatMessages] = React.useState([
-    // the first message object, with three properties
-    {
-      message: "hello chatbot",
-      sender: "user",
-      id: "id1",
-    },
-    {
-      message: "Hello! How can I help you?",
-      sender: "robot",
-      id: "id2",
-    },
-    {
-      message: "can you get me todays date?",
-      sender: "user",
-      id: "id3",
-    },
-    {
-      message: "Today is September 27",
-      sender: "robot",
-      id: "id4",
-    },
-  ]);
+  const [chatMessages, setChatMessages] = React.useState([]);
 
   // returns the JSX that makes up the whole page
   return (
