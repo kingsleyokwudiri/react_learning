@@ -1,6 +1,6 @@
 // The chatbot exercise, ported from ../../no-build/chatbot/app.jsx.
 //
-// Same components, same behaviour -- the difference is how the file is loaded.
+// Same components, same behavior -- the difference is how the file is loaded.
 // There, Babel compiles the JSX in the browser and React comes from a <script>
 // tag in no-build/libs/, so the code refers to the global `React.useState`.
 // Here, Vite compiles it ahead of time and React is a real npm package, so the
@@ -15,94 +15,11 @@
 // {ChatInput()}
 
 import { useState, useEffect, useRef } from "react";
-import Chatbot from "./chatbot.js";
+import { ChatInput } from "../components/ChatInput.jsx";
+import RobotProfileImage from "../../public/robot.png";
+import UserProfileImage from "../../public/user.png";
+
 import "../styles/Chatbot.css";
-
-// defines the ChatInput component (the input box + the Send button)
-// the { } in the parameters unpacks the props object into two variables
-function ChatInput({ chatMessages, setChatMessages }) {
-  // array destructuring: inputText is the value, setInputText is the setter
-  // useState("") creates state that starts as an empty string
-
-  // useState is a hook
-  // hooks shall be at the top of the component, and must not be nested inside anything else
-  const [inputText, setInputText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  // runs every time the user types a character into the input
-  function saveInputText(event) {
-    setInputText(event.target.value);
-  }
-
-  // runs when the user clicks Send or presses Enter
-  // async lets this function pause at an await and continue later
-  async function sendMessage() {
-    // if the robot is still thinking or the input is empty, do nothing
-    if (isLoading || inputText === "") {
-      return;
-    }
-    // if (chatMessages.length === 0) {
-    // }
-    setInputText("");
-    setIsLoading(true);
-    // builds a NEW array of messages (state must never be changed directly)
-    const newChatMessage = [
-      // copies every existing message into the new array
-      ...chatMessages,
-      // then adds the user's new message at the end of the array
-      // crypto.randomUUID() gives each message a unique id for React's key
-      { message: inputText, sender: "user", id: crypto.randomUUID() },
-    ];
-    // shows the user's message plus a temporary "Loading..." bubble while the
-    // robot thinks. the reply below replaces this list, dropping the bubble
-    setChatMessages([
-      // copies in all the messages, including the user's new one
-      ...newChatMessage,
-      { message: "Loading...", sender: "robot", id: crypto.randomUUID() },
-    ]);
-    // asks the Chatbot object from chatbot.js for a reply to the input
-    // getResponseAsync waits a second before replying, and returns a Promise
-    // await pauses here until that Promise resolves, then gives us the reply
-    const response = await Chatbot.getResponseAsync(inputText);
-    // saves the list one more time, this time with the robot's reply added
-    // everything below only runs after the await above has finished
-    setChatMessages([
-      // copies in all the messages, including the user's new one
-      // this rebuilds from newChatMessage, so the "Loading..." bubble is dropped
-      ...newChatMessage,
-      // adds the robot's real reply as the last message
-      { message: response, sender: "robot", id: crypto.randomUUID() },
-    ]);
-    setIsLoading(false);
-  }
-
-  return (
-    // return hands the JSX below back to React so it can be drawn
-    // <></> is a fragment: it groups elements without adding an extra div
-    // used <div> for flexbox
-    <div className="chat-input-container">
-      {/* onChange: runs each time the text changes, so inputText stays in sync */}
-      {/* value: what the input displays - this makes it a "controlled" input */}
-      <input
-        placeholder="Send a message to Chatbot"
-        className="chat-input"
-        size="30"
-        onChange={saveInputText}
-        value={inputText}
-        onKeyDown={(event) => {
-          if (event.key === "Enter") {
-            sendMessage();
-          } else if (event.key === "Escape") {
-            setInputText("");
-          }
-        }}
-      />
-      <button className="send-button" onClick={sendMessage}>
-        Send
-      </button>
-    </div>
-  );
-}
 
 // <div></div> is a block element, it will take up an entire line
 // components are designed to be reusable,
@@ -123,14 +40,14 @@ function ChatMessage({ message, sender }) {
       className={sender === "user" ? "chat-message-user" : "chat-message-robot"}
     >
       {sender === "robot" && (
-        <img src="/robot.png" className="chat-message-profile" />
+        <img src={RobotProfileImage} className="chat-message-profile" />
       )}
       {/* { } inserts JavaScript into JSX, here the message text */}
 
       <div className="chat-message-text">{message}</div>
 
       {sender === "user" && (
-        <img src="/user.png" className="chat-message-profile" />
+        <img src={UserProfileImage} className="chat-message-profile" />
       )}
     </div>
   );
