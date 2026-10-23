@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ChatMessage } from "../components/ChatMessage.jsx";
+import "../styles/ChatMessages.css";
 
 function ChatMessages({ chatMessages }) {
   // useEffect is used to run some code after the component is created/updated

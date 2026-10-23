@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Chatbot from "../scripts/chatbot.js";
+import "../styles/ChatInput.css";
 
 // defines the ChatInput component (the input box + the Send button)
 // the { } in the parameters unpacks the props object into two variables

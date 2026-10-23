@@ -1,5 +1,6 @@
 import RobotProfileImage from "../../public/robot.png";
 import UserProfileImage from "../../public/user.png";
+import "../styles/ChatMessage.css";
 
 export function ChatMessage({ message, sender }) {
   // guard operator
