@@ -83,12 +83,13 @@ function Board({ xIsNext, squares, onPlay }) {
 // so far, and which of those positions is currently on screen.
 export default function Game() {
   // true when it is X's turn (X always starts)
-  const [xIsNext, setXIsNext] = useState(true);
+  // const [xIsNext, setXIsNext] = useState(true);
   // one entry per move played, starting with the empty board. the history is
   // what makes "jump to move #n" possible later.
   const [history, setHistory] = useState([Array(9).fill(null)]);
   // index into history that is currently displayed
   const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
   // the board to render: whichever history entry currentMove points at
   const currentSquares = history[currentMove];
 
@@ -100,13 +101,13 @@ export default function Game() {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1); // show the move just played
-    setXIsNext(!xIsNext); // hand the turn to the other player
+    // setXIsNext(!xIsNext); // hand the turn to the other player
   }
   // clicking a history button: just move the pointer, no new board is created
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
     // rebuild whose turn it is: X plays the even-numbered moves, O the odd ones
-    setXIsNext(nextMove % 2 === 0);
+    // setXIsNext(nextMove % 2 === 0);
   }
   // one <li> per history entry, built from the move list
   const moves = history.map((squares, move) => {
