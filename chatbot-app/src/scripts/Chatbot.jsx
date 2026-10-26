@@ -14,7 +14,7 @@
 // component syntax is <ComponentName />, e.g. <ChatInput />
 // {ChatInput()}
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChatInput } from "../components/ChatInput.jsx";
 import ChatMessages from "../components/ChatMessages.jsx";
 
@@ -44,7 +44,29 @@ export default function ChatbotApp() {
   // or
   // const chatMessages = array[0];
   // const setChatMessages = array[1];
-  const [chatMessages, setChatMessages] = useState([]);
+  // useState can take a function. React calls it once to get the starting
+  // value. Here we load any saved messages from localStorage, so refreshing
+  // the page keeps the conversation instead of starting with an empty chat.
+  const [chatMessages, setChatMessages] = useState(() => {
+    const savedMessages = localStorage.getItem("chatMessages");
+    if (!savedMessages) {
+      return [];
+    }
+    try {
+      return JSON.parse(savedMessages);
+    } catch {
+      // if the saved value is not valid JSON, start with an empty chat
+      return [];
+    }
+  });
+
+  // useEffect runs after the component renders, and again whenever one of the
+  // values in the dependency array below changes. Saves the whole list every
+  // time a message is added. localStorage can only store text, so we use
+  // JSON.stringify to turn the array into a string.
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(chatMessages));
+  }, [chatMessages]);
 
   // returns the JSX that makes up the whole page
   return (
