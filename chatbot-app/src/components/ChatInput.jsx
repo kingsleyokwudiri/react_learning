@@ -18,6 +18,16 @@ export function ChatInput({ chatMessages, setChatMessages }) {
     setInputText(event.target.value);
   }
 
+  // runs when the user clicks Clear
+  // emptying the list also empties the saved messages in localStorage
+  // (see the useEffect in Chatbot.jsx, which watches chatMessages)
+  function clearMessages() {
+    setChatMessages([]);
+    // remove the saved key right away instead of waiting for the effect,
+    // so the stored conversation is gone even if the page is closed now
+    localStorage.removeItem("chatMessages");
+  }
+
   // runs when the user clicks Send or presses Enter
   // async lets this function pause at an await and continue later
   async function sendMessage() {
@@ -75,7 +85,7 @@ export function ChatInput({ chatMessages, setChatMessages }) {
       {/* onChange: runs each time the text changes, so inputText stays in sync */}
       {/* value: what the input displays - this makes it a "controlled" input */}
       <input
-        placeholder="Send a message to Chatbot"
+        placeholder="Message Chatbot"
         className="chat-input"
         size="30"
         onChange={saveInputText}
@@ -90,6 +100,15 @@ export function ChatInput({ chatMessages, setChatMessages }) {
       />
       <button className="send-button" onClick={sendMessage}>
         Send
+      </button>
+      {/* disabled while the robot is replying, because the pending reply would
+          add its messages back after the chat was cleared */}
+      <button
+        className="clear-button"
+        onClick={clearMessages}
+        disabled={isLoading || chatMessages.length === 0}
+      >
+        Clear
       </button>
     </div>
   );

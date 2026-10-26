@@ -1,12 +1,65 @@
+/* the scrollable list of messages */
 .chat-messages-container {
   flex-grow: 1;
-  margin-top: 20px;
-  overflow: scroll;
-  scrollbar-width: none;
+  padding: 20px var(--gutter) 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  /* a thin grey scrollbar instead of hiding it, so it is obvious the list scrolls */
+  scrollbar-width: thin;
+  scrollbar-color: #cfd6d2 transparent;
 }
 
+.chat-messages-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages-container::-webkit-scrollbar-thumb {
+  background-color: #cfd6d2;
+  border-radius: 999px;
+}
+
+/* shown instead of the list while the chat is empty */
 .welcome-message {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
   text-align: center;
-  color: gray;
+}
+
+.welcome-profile {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.welcome-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.welcome-text {
+  margin: 0;
+  max-width: 340px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* examples of what the bot understands, in one quiet card */
+.welcome-hint {
+  margin: 6px 0 0;
+  padding: 10px 16px;
+  max-width: 380px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  background-color: var(--surface-muted);
+  border-radius: var(--radius);
 }

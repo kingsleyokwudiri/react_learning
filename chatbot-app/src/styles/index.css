@@ -1,11 +1,51 @@
 /* Global styles. The chatbot's own styles live in Chatbot.css. */
 
+/* Design tokens. Every colour, radius and font is written down once here, so
+   all the other files stay in sync. The palette stays deliberately small:
+   white and soft grey surfaces, plus one green accent that matches the
+   robot and user images. That is what keeps the app looking like one design. */
+:root {
+  --bg: #eef1ef;
+  --surface: #ffffff;
+  --surface-muted: #f1f4f2;
+  --border: #e3e8e5;
+  --text: #1f2421;
+  --text-muted: #6b7570;
+  --accent: #198754;
+  --accent-dark: #146c43;
+  --radius: 12px;
+  /* width of the centred content band inside the full-width chat surface */
+  --content-width: 1200px;
+  /* Horizontal spacing used by the header, message list and footer.
+     max() keeps a normal gutter on small screens, and once the window is wider
+     than the content band it centres that band instead of stretching it. */
+  --gutter: max(clamp(16px, 4vw, 48px), calc((100% - var(--content-width)) / 2));
+}
+
 * {
   box-sizing: border-box;
 }
 
+/* the app fills the window, so only the message list has to scroll */
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
-  font-family: Arial;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  /* a plain system font keeps the same neutral, readable look as Arial,
+     but renders sharper on each operating system */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* keyboard users need to see which control has focus */
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

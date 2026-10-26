@@ -1,10 +1,67 @@
+/* Page layout: the chat surface fills the window, the content inside it is
+   centred in a band (see --gutter in index.css). */
 
 .app-container {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  /* 100dvh uses the browser's visible height on phones, so the input bar is
+     never hidden behind the address bar. 100vh is the fallback. */
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  background-color: var(--surface);
 }
 
+/* header: who the user is talking to */
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px var(--gutter);
+  border-bottom: 1px solid var(--border);
+  /* the header and footer keep their size; only the message list scrolls */
+  flex-shrink: 0;
+}
+
+.chat-header-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.chat-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.chat-header-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.chat-header-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.chat-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+/* footer bar: keeps the input visually separate from the scrolling messages */
+.chat-footer {
+  padding: 14px var(--gutter) 18px;
+  border-top: 1px solid var(--border);
+  background-color: var(--surface);
+  flex-shrink: 0;
+}

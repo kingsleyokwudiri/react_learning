@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { ChatInput } from "../components/ChatInput.jsx";
 import ChatMessages from "../components/ChatMessages.jsx";
 
+import RobotProfileImage from "../../public/robot.png";
 import "../styles/Chatbot.css";
 
 // <div></div> is a block element, it will take up an entire line
@@ -65,6 +66,12 @@ export default function ChatbotApp() {
   // time a message is added. localStorage can only store text, so we use
   // JSON.stringify to turn the array into a string.
   useEffect(() => {
+    // an empty chat means "nothing saved": remove the key instead of storing "[]"
+    // (this is what keeps a cleared conversation from coming back after a refresh)
+    if (chatMessages.length === 0) {
+      localStorage.removeItem("chatMessages");
+      return;
+    }
     localStorage.setItem("chatMessages", JSON.stringify(chatMessages));
   }, [chatMessages]);
 
@@ -72,14 +79,32 @@ export default function ChatbotApp() {
   return (
     // a fragment groups the two components below
     <div className="app-container">
+      {/* header: the avatar and name make it clear who the replies come from */}
+      <header className="chat-header">
+        <img
+          src={RobotProfileImage}
+          className="chat-header-profile"
+          alt="Chatbot"
+        />
+        <div className="chat-header-info">
+          <div className="chat-header-name">Chatbot</div>
+          <div className="chat-header-status">
+            <span className="chat-status-dot" />
+            Online
+          </div>
+        </div>
+      </header>
       {/* chatMessages: passed down so ChatInput can read the list */}
       {/* setChatMessages: passed down so ChatInput can update the list */}
       {/* chatMessages: the same list, passed down so it can be displayed */}
       <ChatMessages chatMessages={chatMessages} />
-      <ChatInput
-        chatMessages={chatMessages}
-        setChatMessages={setChatMessages}
-      />
+      {/* the footer bar holds the input, so it stays pinned to the bottom */}
+      <div className="chat-footer">
+        <ChatInput
+          chatMessages={chatMessages}
+          setChatMessages={setChatMessages}
+        />
+      </div>
     </div>
   );
 }

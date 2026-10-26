@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ChatMessage } from "../components/ChatMessage.jsx";
+import RobotProfileImage from "../../public/robot.png";
 import "../styles/ChatMessages.css";
 
 function ChatMessages({ chatMessages }) {
@@ -16,7 +17,16 @@ function ChatMessages({ chatMessages }) {
   if (chatMessages.length === 0) {
     return (
       <div className="welcome-message">
-        <p>Welcome to the chatbot project!</p>
+        <img src={RobotProfileImage} className="welcome-profile" alt="" />
+        <h1 className="welcome-title">Welcome to the chatbot project!</h1>
+        <p className="welcome-text">
+          Send a message below and the chatbot will reply straight away.
+        </p>
+        {/* tells the user up front what this bot can actually understand */}
+        <p className="welcome-hint">
+          Try “tell me a joke”, “flip a coin”, “tell me a fun fact”, or “what
+          can you do”.
+        </p>
       </div>
     );
   }
