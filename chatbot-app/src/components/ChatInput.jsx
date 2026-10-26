@@ -29,20 +29,22 @@ export function ChatInput({ chatMessages, setChatMessages }) {
     // }
     setInputText("");
     setIsLoading(true);
+    // saves when this message was sent, so it can be shown under the message
+    const time = new Date().toISOString();
     // builds a NEW array of messages (state must never be changed directly)
     const newChatMessage = [
       // copies every existing message into the new array
       ...chatMessages,
       // then adds the user's new message at the end of the array
       // crypto.randomUUID() gives each message a unique id for React's key
-      { message: inputText, sender: "user", id: crypto.randomUUID() },
+      { message: inputText, sender: "user", id: crypto.randomUUID(), time },
     ];
     // shows the user's message plus a temporary "Loading..." bubble while the
     // robot thinks. the reply below replaces this list, dropping the bubble
     setChatMessages([
       // copies in all the messages, including the user's new one
       ...newChatMessage,
-      { message: "Loading...", sender: "robot", id: crypto.randomUUID() },
+      { message: "Loading...", sender: "robot", id: crypto.randomUUID(), time },
     ]);
     // asks the Chatbot object from chatbot.js for a reply to the input
     // getResponseAsync waits a second before replying, and returns a Promise
@@ -55,7 +57,12 @@ export function ChatInput({ chatMessages, setChatMessages }) {
       // this rebuilds from newChatMessage, so the "Loading..." bubble is dropped
       ...newChatMessage,
       // adds the robot's real reply as the last message
-      { message: response, sender: "robot", id: crypto.randomUUID() },
+      {
+        message: response,
+        sender: "robot",
+        id: crypto.randomUUID(),
+        time: new Date().toISOString(),
+      },
     ]);
     setIsLoading(false);
   }

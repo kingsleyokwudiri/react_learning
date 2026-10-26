@@ -19,6 +19,17 @@
   max-width: 300px;
 }
 
+.chat-message-time {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1;
+  color: rgb(110, 110, 110);
+}
+
+.chat-message-user .chat-message-time {
+  text-align: right;
+}
+
 .chat-message-profile {
   width: 50px;
 
