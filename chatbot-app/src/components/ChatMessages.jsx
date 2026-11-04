@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { ChatMessage } from "../components/ChatMessage.jsx";
-import RobotProfileImage from "../../public/robot.png";
 import "../styles/ChatMessages.css";
 
 function ChatMessages({ chatMessages }) {
@@ -17,7 +16,7 @@ function ChatMessages({ chatMessages }) {
   if (chatMessages.length === 0) {
     return (
       <div className="welcome-message">
-        <img src={RobotProfileImage} className="welcome-profile" alt="" />
+        <img src="/robot.png" className="welcome-profile" alt="" />
         <h1 className="welcome-title">Welcome to the chatbot project!</h1>
         <p className="welcome-text">
           Send a message below and the chatbot will reply straight away.

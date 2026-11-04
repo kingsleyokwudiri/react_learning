@@ -18,7 +18,6 @@ import { useEffect, useState } from "react";
 import { ChatInput } from "../components/ChatInput.jsx";
 import ChatMessages from "../components/ChatMessages.jsx";
 
-import RobotProfileImage from "../../public/robot.png";
 import "../styles/Chatbot.css";
 
 // <div></div> is a block element, it will take up an entire line
@@ -54,7 +53,9 @@ export default function ChatbotApp() {
       return [];
     }
     try {
-      return JSON.parse(savedMessages);
+      const parsedMessages = JSON.parse(savedMessages);
+      // only an array is a valid saved conversation
+      return Array.isArray(parsedMessages) ? parsedMessages : [];
     } catch {
       // if the saved value is not valid JSON, start with an empty chat
       return [];
@@ -82,7 +83,7 @@ export default function ChatbotApp() {
       {/* header: the avatar and name make it clear who the replies come from */}
       <header className="chat-header">
         <img
-          src={RobotProfileImage}
+          src="/robot.png"
           className="chat-header-profile"
           alt="Chatbot"
         />

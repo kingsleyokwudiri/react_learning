@@ -42,4 +42,5 @@ npm run lint
 
 <!--
 cd chatbot-app
-  <!-- npm run dev --> starts Vite and prints a local URL -->
+  npm run dev    # starts Vite and prints a local URL
+-->
